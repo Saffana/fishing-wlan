@@ -1,0 +1,46 @@
+\documentclass[a4paper, 11pt]{article}
+%--Packages pour la mise en page--%
+\usepackage[utf8x]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel} 
+\usepackage{lmodern}
+\usepackage{fullpage}
+\usepackage[]{algorithm2e}
+%---------------------------------%
+
+%----Informations du document-----%
+\title{Overview}
+\author{Authors}
+\date{04 Septembre 2015} 
+%---------------------------------%
+
+\begin{document}
+
+\maketitle
+
+\section*{Nom du projet :}
+Récupération de données privées par hameçonnage.
+
+\section*{Objectifs :} 
+
+\begin{itemize}
+	\item[•] L'objectif final de l'attaque sera la récupération des identifiants du compte Gmail de la cible. 
+	\item[•] Pour cela, nous allons intercepter et détourner le trafic de la cible en utilisant les techniques du "man in the middle" (ARP Spoofing et DNS Spoofing).
+	\item[•] La cible sera donc redirigée vers une page web pirate hébergée sur un serveur distant.
+	\item[•] Pensant être sur une page de connexion Gmail, la victime va s'identifier et nous pourrons récupérer les données de la cible.
+	\item[•] Expliquer les différentes contre-mesures pour ce genre d'attaques.
+ 	\item[•] [Bonus] Modifier les certificats et gérer HTTPS.
+\end{itemize}
+
+\section*{Ce qu'on va apprendre en mettant en place ce projet : }
+\begin{itemize}
+	\item[•] Mettre en place un "man in the middle" : maitrise des requêtes de niveau 2 (ARP)
+	\item[•] Mettre en place un faux DNS : DNS Spoofing
+	\item[•] Utilisation de Wireshark
+	\item[•] Exploiter un serveur web avec une base de donnée
+\end{itemize}
+
+\section*{Partage du code : }
+Le partage du code se fera via git.
+
+\end{document}
