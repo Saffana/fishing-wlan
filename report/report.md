@@ -43,13 +43,14 @@ Example of an ARP spoof message:
 
 
 Then, if we look to the target's ARP table, we can see that he uses our gateway.
-At this point, the target can't reach the internet since he is asking to our gateway. To make him communicate throw the attacker's gateway, we need to activate the IP forwarding.
-So now, 
+At this point, the target can't reach the internet since he is asking to our gateway.
+To make him communicate throw the attacker's gateway, we need to activate the IP forwarding.
+So now, the target can surf on the internet, the MITM is in palce, the hacker can see what is comming throw his connections.
 
 ###1.1.1.2 DNS Step
-This step is necessary for the MITM attack.
+This step is necessary to exploit a MITM attack.
 The purpose of the DNSSpoofing is to intercept the target's DNS requests to be able, if required, to redirect them.
-Le but du DNSSpoofing est d'intercepter les requetes DNS de la cible pour pouvoir si necessaire la rediriger.
+
 
 
 ###1.2 - what we did to legally test security flaw
@@ -58,6 +59,12 @@ Le but du DNSSpoofing est d'intercepter les requetes DNS de la cible pour pouvoi
 
 ###1.3 - Counter measures to prevent this kind of attack
 For the website owner :
+ - not providing an HTTP version of his website
+ - acquire a legitimate HTTPS certificate
+
+For the internet user :
+ - always browse on a secured network you trust (ie not on a public WI-FI)
+ - always browse on a HTTPS website with trusted and verified certificate
 
 
 ##2 - Encountered problems
