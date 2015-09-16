@@ -1,9 +1,10 @@
-#Phishing-wlan
+#Phishing-WLAN
 
 
 ## Introduction
-Our goal is to get the victim's credentials while he is trying to connect to a website
-The project takes place in our network course. The aim of this project is to practice and learn how a particular aspect of a network works.
+Our goal is to get the victim's credentials while he is trying to connect to a website.
+This project takes place in our network course. 
+The aim of this project is to practice and learn how a particular aspect of a network works.
 
 This project can be sum up by several steps :
 - Scan the Network and choose a victim
@@ -16,30 +17,43 @@ This project can be sum up by several steps :
 ##1 - What we are doing
 
 ###1.1 - Global Process
-The first step of this attack is to look for a target by scanning the network, and getting his network gateway. (insérer capture du nmap).
-Then, we can make his him think that we are its gateway. At this point, the target can't reach the internet. This is not what we want, the MITM has to be as invisiable as possible.
-So, the solution is to use ARPSpoofing, the aim is to deliver all the packets towards the real gateway by spoofing the targets ARP table.
-For the target, he is just surfing on the internet.
-For the attacker, he can see all the packets and eny information about the target.
+The first step of this attack is to look for a target by scanning the network, and getting his network gateway. 
+
+            (insérer capture du nmap)
+
+Then, we can make the target's routing table think that we are its gateway via ARPSpoofing, and redirect all the DNS requests with some DNSSpoofing.
+For the target, this is just a normal browsing over the internet.
+For the attacker, he can see all the packets and get any information about the target.
 
 
 ####1.1.1 ARP Step
-Before spoofing the target, we can lookup on his ARP table and see the relation between IP adress and MAC adress.
-Avant de lancer l'attaque on peut regarder la table ARP  de la victime. La table arp fait une correspondance entre Adresse Ip et adresse MAC.
-On peut donc y voire l'adresse IP de la box associé à son adresse MAC. Le but de l'arpspoof est d'envoyer une trame ARP (donc de niveau 2), 
-et en réaliter inonder la victime de ces trames pour la forcer à mettre à jour sa gateway. Si on lance un wireshark sur la victime on voit un grand nombre de requete ARP pour la forcer à changer sa table
-Ex ARP spoof : 
-MAC_PIRATE tell MAC_TARGET that <IP_GATEWAY> is at MAC_PIRATE
-Si on regarde à nouveau la table arp de la victime on s'appercoit que la gateway a changer de mac. On remarque aussi que cette adresse MAC match une autre IP : celle de l'attaquant.
+Before spoofing the target, we can lookup on his ARP table and see the relation between IP adress and MAC adress. 
+With those informations, we can get the AP IP and MAC adress. 
+
+            (cf. screen arp before spoofing)
+
+We can now start the ARPSoofing, this will have the effect of sending continuously the same ARP packets (level 2 messages) to the target.
+The point in doing this, is to force the target to think that the gateway we are sending in the ARP messages is his gateway.
+
+If we open wireshark to sniff the network, we are able to see a lot of those ARP messages from the attacker.
+
+Example of an ARP spoof message: 
+
+<MAC_PIRATE> tell <MAC_TARGET> that <IP_GATEWAY> is at <MAC_PIRATE>
 
 
+Then, if we look to the target's ARP table, we can see that he uses our gateway.
+At this point, the target can't reach the internet since he is asking to our gateway. To make him communicate throw the attacker's gateway, we need to activate the IP forwarding.
+So now, 
 
-
-
+###1.1.1.2 DNS Step
+This step is necessary for the MITM attack.
+The purpose of the DNSSpoofing is to intercept the target's DNS requests to be able, if required, to redirect them.
+Le but du DNSSpoofing est d'intercepter les requetes DNS de la cible pour pouvoir si necessaire la rediriger.
 
 
 ###1.2 - what we did to legally test security flaw
-- Work on a personnal wlan
+- Work on a personnal WLAN
 - Every test was ran on our personnal machines
 
 ###1.3 - Counter measures to prevent this kind of attack
@@ -70,14 +84,14 @@ For the website owner :
 We wanted to learn how to use some basic tools provided natively with kali linux.
 
 ##5 - How did we share the code
-We used Git (and especially GitHub) to share the code. (https://github.com/as3nds/fishing-wlan)
+We used Git (and especially GitHub) to share the code. (https://github.com/as3nds/fishing-WLAN)
 We also used c9.io to work in a collaborative way.
 
 
 ## - Definitions
 AP  : Acces Point, device necessary to connect client on a wireless network.
 MITM : Man In The Middle, this attack is based on relaying secretly the communication between a client and the AP.
-ARP Table
+ARP Table : It's a database with all the relation between IP adress and MAC adress.
 
 ## - Used Programs :
 - nmap : Scan the network in order to find a target
