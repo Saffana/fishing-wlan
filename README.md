@@ -6,6 +6,7 @@ The project takes place in our network course. The aim of this project is to pra
 
 ##2 - Definitions
 AP: Acces Point
+
 MITM : Man In The Middle,  this attack is based on relaying secretly the communication between a client and the AP.
 
 ##3 - Overview
