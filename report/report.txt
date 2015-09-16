@@ -1,4 +1,4 @@
-#Fishing-wlan
+#Phishing-wlan
 Our goal is to get the victim's credentials while he is trying to connect to a website
 
 ## Introduction
@@ -13,9 +13,9 @@ This project can be sum up by several steps :
 - Steal credentials
 
 ##1 - What we are doing - Process
-The first step of this attack is to look for a target by scanning the network, then we can get its gateway. (insérer capture du nmap).
-Since we have its gateway, we can make him think that we are its gateway, and in the same time, we deliver the packets toward the real
-gateway so that everything is almost invisible for the target. To make it invisible we have to forward the packet previously.
+The first step of this attack is to look for a target by scanning the network, and getting his gateway. (insérer capture du nmap).
+Then, we can make him think that we are its gateway, in the same time, we deliver the packets toward the real gateway so that everything 
+is almost invisible for the target. To make it invisible we have to forward the packet previously.
 When we get our target we have to spoof the gateway of his ARP table. So when the target wants to go on the Internet she sends her packets to the hacker 
 
 ##2 - Encountered problems

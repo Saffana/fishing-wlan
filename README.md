@@ -1,4 +1,4 @@
-# Fishing-wlan
+# Phishing-wlan
 Our goal is to get the victim's credentials while he is trying to connect to a website
 
 ##1 - Introduction
