@@ -51,6 +51,9 @@ So now, the target can surf on the internet, the MITM is in palce, the hacker ca
 This step is necessary to exploit a MITM attack.
 The purpose of the DNSSpoofing is to intercept the target's DNS requests to be able, if required, to redirect them.
 
+###1.1.1.3 Serveur HTTP Step
+Once the DNSSpoofing is working, our objectives is to redirect he target to our own webservice wichi 
+Pour que la redirection DNS fonctionne il faut qu'un serveur http tourne sur la machine où  a été rediriger la victime
 
 
 ###1.2 - what we did to legally test security flaw

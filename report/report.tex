@@ -157,6 +157,18 @@ The purpose of the DNSSpoofing is to intercept the target's DNS requests to be a
 	\caption{DNS spoofing}
 	\label{DNS_spoofing}
 \end{figure}
+Capture_DNS 
+
+\subsubsection{HTTP Server Step}
+Once the DNSSpoofing is runnig, the objective is to redirect the target to our own web service wich is a copy of the website ask by the target.
+This copied website will be used to trap the target, he will think he is on the real site.\\
+We have reproduced a fake gmail authentification page, but we have problems to redirect the target since gmail.com has good protection against SSLStrip.
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.80]{../images/serverHTTP.jpg}
+	\caption{HTTP server}
+	\label{serverHTTP}
+\end{figure}
 
 \subsection{What we did to legally test security flaw}
 \begin{itemize}
