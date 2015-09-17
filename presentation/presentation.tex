@@ -4,6 +4,7 @@
 \usepackage{lmodern}
 \usepackage[T1]{fontenc}
 \usepackage{graphicx}
+\usepackage{epstopdf}
 \usetheme{Hannover}
 \title[Phishing-Wlan]{Network 101\\Phishing-wlan}
 \author{Authors}
@@ -44,7 +45,7 @@
 \begin{frame}{Global Process}
 	\begin{figure}[!h]
 		\centering
-		\includegraphics[scale=0.45]{../images/captureNMAP.jpg}
+		\includegraphics[scale=0.45]{../images/captureNMAP.eps}
 		\caption{nmap capture} %la légende
 		\label{nmap_capture} %l'étiquette
 	\end{figure}
@@ -54,13 +55,13 @@
 \begin{frame}{ARP Step}
 	\begin{figure}[!h]
 		\centering
-		\includegraphics[scale=0.50]{../images/arpTableBeforeSpoof.png}
+		\includegraphics[scale=0.50]{../images/arpTableBeforeSpoof.eps}
 		\caption{ARP Table before spoof}
 		\label{ARP_before_spoof}
 	\end{figure}
 	\begin{figure}[!h]
 		\centering
-		\includegraphics[scale=0.50]{../images/arpTableAfterSpoof.png}
+		\includegraphics[scale=0.50]{../images/arpTableAfterSpoof.eps}
 		\caption{ARP Table after spoof}
 		\label{ARP_after_spoof}
 	\end{figure}	
@@ -75,7 +76,7 @@
 
 	\begin{figure}[!h]
 		\centering
-		\includegraphics[scale=0.2]{../images/wiresharArpSpoof.png}
+		\includegraphics[scale=0.2]{../images/wiresharArpSpoof.eps}
 		\caption{Wireshark capture of the ARP spoofing}
 		\label{Wireshark_ARP_Spoof}
 	\end{figure}
@@ -85,7 +86,7 @@
 \begin{frame}{DNS Step}
 	\begin{figure}[!h]
 		\centering
-		\includegraphics[scale=0.50]{../images/dnsSpoof.jpg}
+		\includegraphics[scale=0.50]{../images/dnsSpoof.eps}
 		\caption{DNS spoofing}
 		\label{DNS_spoofing}
 	\end{figure}
@@ -95,7 +96,7 @@
 \begin{frame}{HTTP Server Step}
 	\begin{figure}[!h]
 		\centering
-		\includegraphics[scale=0.75]{../images/serverHTTP.jpg}
+		\includegraphics[scale=0.75]{../images/serverHTTP.eps}
 		\caption{HTTP server}
 		\label{serverHTTP}
 	\end{figure}
