@@ -5,6 +5,7 @@
 \usepackage{lmodern}
 \usepackage[T1]{fontenc}
 \usepackage{fullpage}
+\usepackage{graphicx}
 %---------------------------------%
 
 %----Document Informations-----%
@@ -68,6 +69,8 @@ Spécialité Ingénieur en Cyberdéfense
 }%
 %---------------------------------%
 
+\parindent=0cm
+
 \begin{document}
 
 \maketitle
@@ -95,9 +98,12 @@ This project can be sum up by several steps :
 
 \subsection{Global Process}
 The first step of this attack is to look for a target by scanning the network, and getting his network gateway. \\
-
-            (insérer capture du nmap)
-
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.75]{../images/captureNMAP.jpg}
+	\caption{nmap capture} %la légende
+	\label{nmap_capture} %l'étiquette
+\end{figure}
 Then, we can make the target's routing table think that we are its gateway via ARPSpoofing, and redirect all the DNS requests with some DNSSpoofing.\\
 For the target, this is just a normal browsing over the internet.\\
 For the attacker, he can see all the packets and get any information about the target.\\
@@ -106,28 +112,51 @@ For the attacker, he can see all the packets and get any information about the t
 \subsubsection{ARP Step}
 Before spoofing the target, we can lookup on his ARP table and see the relation between IP adress and MAC adress. \\
 With those informations, we can get the AP IP and MAC adress. \\
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.75]{../images/arpTableBeforeSpoof.png}
+	\caption{ARP Table before spoof}
+	\label{ARP_before_spoof}
+\end{figure}
 
-            (cf. screen arp before spoofing)
-
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.75]{../images/arpTableAfterSpoof.png}
+	\caption{ARP Table after spoof}
+	\label{ARP_after_spoof}
+\end{figure}
 We can now start the ARPSoofing, this will have the effect of sending continuously the same ARP packets (level 2 messages) to the target.\\
 The point in doing this, is to force the target to think that the gateway we are sending in the ARP messages is his gateway.\\
 If we open wireshark to sniff the network, we are able to see a lot of those ARP messages from the attacker.\\
 
 Example of an ARP spoof message: 
+\begin{center}
 \begin{verbatim}
 <MAC_PIRATE> tell <MAC_TARGET> that <IP_GATEWAY> is at <MAC_PIRATE>
 \end{verbatim}
+\end{center}
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.3]{../images/wiresharArpSpoof.png}
+	\caption{Wireshark capture of the ARP spoofing}
+	\label{Wireshark_ARP_Spoof}
+\end{figure}
 
 Then, if we look to the target's ARP table, we can see that he uses our gateway.\\
 At this point, the target can't reach the internet since he is asking to our gateway.\\
 To make him communicate throw the attacker's gateway, we need to activate the IP forwarding.\\
-So now, the target can surf on the internet, the MITM is in palce, the hacker can see what is comming throw his connections.\\
+So now, the target can surf on the internet, the MITM is in place, the hacker can see what is comming throw his connections.\\
 
 \subsubsection{DNS Step}
 This step is necessary to exploit a MITM attack.\\
 The purpose of the DNSSpoofing is to intercept the target's DNS requests to be able, if required, to redirect them.\\
-
-
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.80]{../images/dnsSpoof.jpg}
+	\caption{DNS spoofing}
+	\label{DNS_spoofing}
+\end{figure}
 
 \subsection{What we did to legally test security flaw}
 \begin{itemize}
@@ -183,6 +212,8 @@ We wanted to learn how to use some basic tools provided natively with kali linux
 We used Git (and especially GitHub) to share the code. (https://github.com/as3nds/fishing-WLAN)\\
 We also used c9.io to work in a collaborative way.\\
 
+\pagebreak
+
 \section*{Definitions :}
 \paragraph{AP}
 Acces Point, device necessary to connect client on a wireless network.\\
@@ -194,12 +225,19 @@ Man In The Middle, this attack is based on relaying secretly the communication b
 It's a database with all the relation between IP adress and MAC adress.\\
 
 \section*{Used Programs :}
-\begin{itemize}
-    \item[-] nmap : Scan the network in order to find a target\\
-    \item[-] arpspoof : Allows to usurp the target's gateway\\
-    \item[-] wireshark : Network analyzer, shows all the packets flowing on the network including protocols and many informations\\
-    \item[-] dnsspoof : Listen and intercept the target's DNS requests in order to apply a fake DNS table.\\
-    \item[-] sslstrip : This tool, used in a MITM attack, can change requests protocols from HTTPS to HTTP. Only works with website that have HTTP 'AND' HTTPS connection\\
-\end{itemize}
+\paragraph{nmap}
+Scan the network in order to find a target\\
+
+\paragraph{arpspoof}
+Allows to usurp the target's gateway\\
+
+\paragraph{wireshark}
+Network analyzer, shows all the packets flowing on the network including protocols and many informations\\
+
+\paragraph{dnsspoof}
+Listen and intercept the target's DNS requests in order to apply a fake DNS table.\\
+
+\paragraph{sslstrip}
+This tool, used in a MITM attack, can change requests protocols from HTTPS to HTTP. Only works with website that have HTTP 'AND' HTTPS connection\\
 
 \end{document}
