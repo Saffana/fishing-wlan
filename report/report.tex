@@ -6,6 +6,7 @@
 \usepackage[T1]{fontenc}
 \usepackage{fullpage}
 \usepackage{graphicx}
+\usepackage{epstopdf}
 %---------------------------------%
 
 %----Document Informations-----%
@@ -82,7 +83,7 @@ Our goal is to get the victim's credentials while he is trying to connect to a w
 This project takes place in our network course. 
 The aim of this project is to practice and learn how a particular aspect of a network works.
 
-This project can be sum up by several steps :
+This project can be sumed up by several steps :
 \begin{itemize}
 \item[-] Scan the Network and choose a victim\\
 \item[-] Setup a MITM Attack on the Local Area Network\\
@@ -100,7 +101,7 @@ This project can be sum up by several steps :
 The first step of this attack is to look for a target by scanning the network, and getting his network gateway. \\
 \begin{figure}[!h]
 	\centering
-	\includegraphics[scale=0.75]{../images/captureNMAP.jpg}
+	\includegraphics[scale=0.75]{../images/captureNMAP.eps}
 	\caption{nmap capture} %la légende
 	\label{nmap_capture} %l'étiquette
 \end{figure}
@@ -114,14 +115,14 @@ Before spoofing the target, we can lookup on his ARP table and see the relation 
 With those informations, we can get the AP IP and MAC adress. \\
 \begin{figure}[!h]
 	\centering
-	\includegraphics[scale=0.75]{../images/arpTableBeforeSpoof.png}
+	\includegraphics[scale=0.75]{../images/arpTableBeforeSpoof.eps}
 	\caption{ARP Table before spoof}
 	\label{ARP_before_spoof}
 \end{figure}
 
 \begin{figure}[!h]
 	\centering
-	\includegraphics[scale=0.75]{../images/arpTableAfterSpoof.png}
+	\includegraphics[scale=0.75]{../images/arpTableAfterSpoof.eps}
 	\caption{ARP Table after spoof}
 	\label{ARP_after_spoof}
 \end{figure}
@@ -138,7 +139,7 @@ Example of an ARP spoof message:
 
 \begin{figure}[!h]
 	\centering
-	\includegraphics[scale=0.3]{../images/wiresharArpSpoof.png}
+	\includegraphics[scale=0.3]{../images/wiresharArpSpoof.eps}
 	\caption{Wireshark capture of the ARP spoofing}
 	\label{Wireshark_ARP_Spoof}
 \end{figure}
@@ -153,7 +154,7 @@ This step is necessary to exploit a MITM attack.\\
 The purpose of the DNSSpoofing is to intercept the target's DNS requests to be able, if required, to redirect them.\\
 \begin{figure}[!h]
 	\centering
-	\includegraphics[scale=0.80]{../images/dnsSpoof.jpg}
+	\includegraphics[scale=0.80]{../images/dnsSpoof.eps}
 	\caption{DNS spoofing}
 	\label{DNS_spoofing}
 \end{figure}
@@ -165,7 +166,7 @@ This copied website will be used to trap the target, he will think he is on the 
 We have reproduced a fake gmail authentification page, but we have problems to redirect the target since gmail.com has good protection against SSLStrip.
 \begin{figure}[!h]
 	\centering
-	\includegraphics[scale=0.80]{../images/serverHTTP.jpg}
+	\includegraphics[scale=0.80]{../images/serverHTTP.eps}
 	\caption{HTTP server}
 	\label{serverHTTP}
 \end{figure}
@@ -200,7 +201,7 @@ For the internet user : \\
 \subsection{How we actually dealt with them}
 \begin{itemize}
     \item[-] HTTPS protocol, the solution to get readable informations with this protocol is to use SSLStrip.\\
-    \item[-] HTTPS with SSLStrip, we can't use it on facebook.com or gmail.com, we have to find an other website with less protection.\\
+    \item[-] HTTPS with SSLStrip, we can't use it on facebook.com or gmail.com (and others), we have to find an other website with less protection.\\
 \end{itemize}
     
 \section{Differences with the Overview's Objectives}
