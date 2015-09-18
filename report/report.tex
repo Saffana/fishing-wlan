@@ -79,11 +79,11 @@ Spécialité Ingénieur en Cyberdéfense
 %\tableofcontents
 
 \section*{Introduction}
-Our goal is to get the victim's credentials while he is trying to connect to a website.
-This project takes place in our network course. 
-The aim of this project is to practice and learn how a particular aspect of a network works.
+Our goal is to get the victim's credentials while he is trying to connect to a website.\\
+This project takes place in our network course. \\
+The aim of this project is to practice and learn how a particular aspect of a network works.\\
 
-This project can be sumed up by several steps :
+This project can be sum up by several steps :\\
 \begin{itemize}
 \item[-] Scan the Network and choose a victim\\
 \item[-] Setup a MITM Attack on the Local Area Network\\
@@ -94,6 +94,17 @@ This project can be sumed up by several steps :
     \end{itemize}
 \item[-] Steal credentials\\
 \end{itemize}
+
+Man In The Middle attack schematized :\\
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.75]{../images/mitm.eps}
+	\caption{Man In The Middle attack}
+	\label{mitm_attack}
+\end{figure}
+(https://www.multicert.com/en/news/sha1-shellshock-and-poodle-web-threats/)
+
+\pagebreak
 
 \section{What we are doing}
 
@@ -109,7 +120,7 @@ Then, we can make the target's routing table think that we are its gateway via A
 For the target, this is just a normal browsing over the internet.\\
 For the attacker, he can see all the packets and get any information about the target.\\
 
-
+%\pagebreak
 \subsubsection{ARP Step}
 Before spoofing the target, we can lookup on his ARP table and see the relation between IP adress and MAC adress. \\
 With those informations, we can get the AP IP and MAC adress. \\
@@ -139,7 +150,7 @@ Example of an ARP spoof message:
 
 \begin{figure}[!h]
 	\centering
-	\includegraphics[scale=0.3]{../images/wiresharArpSpoof.eps}
+	\includegraphics[scale=0.55]{../images/wiresharArpSpoof.eps}
 	\caption{Wireshark capture of the ARP spoofing}
 	\label{Wireshark_ARP_Spoof}
 \end{figure}
@@ -149,26 +160,66 @@ At this point, the target can't reach the internet since he is asking to our gat
 To make him communicate throw the attacker's gateway, we need to activate the IP forwarding.\\
 So now, the target can surf on the internet, the MITM is in place, the hacker can see what is comming throw his connections.\\
 
+\pagebreak
 \subsubsection{DNS Step}
 This step is necessary to exploit a MITM attack.\\
-The purpose of the DNSSpoofing is to intercept the target's DNS requests to be able, if required, to redirect them.\\
+The purpose of the DNS Spoofing is to intercept the target's DNS requests to be able, if required, to redirect them.\\
+
 \begin{figure}[!h]
 	\centering
-	\includegraphics[scale=0.80]{../images/dnsSpoof.eps}
+	\includegraphics[scale=0.5]{../images/dnsSpoof.eps}
 	\caption{DNS spoofing}
 	\label{DNS_spoofing}
 \end{figure}
-Capture_DNS 
+
+Below, we can see that the targets is doing DNS requests aiming fbi.gov. \\
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.6]{../images/DNSCaptureShell.eps}
+	\caption{DNS shell capture}
+	\label{DNSCaptureShell}
+\end{figure}
+
+Here, we can see the DNS requests on Wireshark. \\
+A query from the target to fbi.gov (No. 66 and 67) then on the reply the IP adress for fbi.gov is the attacker's instead of the real IP adress. \\
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.4]{../images/DNSCaptureWireshark.eps}
+	\caption{DNS Wireshark capture}
+	\label{DNSCaptureWireshark}
+\end{figure}
+
 
 \subsubsection{HTTP Server Step}
-Once the DNSSpoofing is runnig, the objective is to redirect the target to our own web service wich is a copy of the website ask by the target.
+Once the DNSSpoofing is runnig, the objective is to redirect the target to our own web service wich is a copy of the website ask by the target. \\
 This copied website will be used to trap the target, he will think he is on the real site.\\
-We have reproduced a fake gmail authentification page, but we have problems to redirect the target since gmail.com has good protection against SSLStrip.
+We have reproduced a fake gmail authentification page, hosted on our own HTTP server. \\
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.2]{../images/fakeGMail.eps}
+	\caption{Fake GMail}
+	\label{fakeGMail}
+\end{figure}
+
+First, we used the SimpleHTTPServer tool that opens the 80 port and executes a simple HTML webpage.\\
 \begin{figure}[!h]
 	\centering
 	\includegraphics[scale=0.80]{../images/serverHTTP.eps}
-	\caption{HTTP server}
+	\caption{HTTP Server}
 	\label{serverHTTP}
+\end{figure}
+
+We later decided to execute an Apache webserver : we wanted to have a database to store the credentials, but SimpleHTTPServer didn't offer that functionality. \\
+We used PHPMyAdmin for the database.\\
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.5]{../images/database.eps}
+	\caption{PHPMyAdmin database}
+	\label{database}
 \end{figure}
 
 \subsection{What we did to legally test security flaw}
@@ -190,43 +241,59 @@ For the internet user : \\
     \item[-] always browse on a HTTPS website with trusted and verified certificate\\
 \end{itemize}
 
+\pagebreak
+
 \section{Encountered problems}
 
 \subsection{What they were}
 \begin{itemize}
     \item[-] HTTPS protocol, while in the MITM, we can 'read' everything as long as the target is on HTTP. If we ask for HTTPS website, all the packets are protected. \\
-    \item[-] HTTPS with SSLStrip, Even with ssltrip, we still have problems to get credentials on specific websites (facebook.com and gmail.com for exemple). Those website, do not use http at all, so sslstrip does not have eny effects.\\
+    \item[-] HTTPS with SSLStrip : Even with ssltrip, we still have problems to get credentials on specific websites (facebook.com and gmail.com for exemple). Those website, do not use HTTP at all, so sslstrip does not have eny effects.\\
 \end{itemize}
 
 \subsection{How we actually dealt with them}
 \begin{itemize}
     \item[-] HTTPS protocol, the solution to get readable informations with this protocol is to use SSLStrip.\\
-    \item[-] HTTPS with SSLStrip, we can't use it on facebook.com or gmail.com (and others), we have to find an other website with less protection.\\
+    \item[-] HTTPS with SSLStrip : we can't use it on facebook.com or gmail.com, we had to find an other website with less protection. That's why we chose fbi.gov, just to demonstrate our handling.\\
 \end{itemize}
-    
+
+\section{My Ethercap project}
+
+We began to code a sniffer-like program : my ethercap. \\
+You can see the source code on the following link : \\
+https://github.com/as3nds/phishing-wlan/tree/my-ethercap/my-ethercap\\
+  
+%\pagebreak
+
 \section{Differences with the Overview's Objectives}
 
-\subsection{What are those differences (if any)?}
+\subsection{What are those differences and why did we not met our objectives?}
 \begin{itemize}
     \item[-] We wanted to get the credentials from gmail, but since this site is well protected against this sort of attack, we can't use it as our target.\\
+    \item[-] We started to code our own tools sniffer (ARP spoofing, etc. Available on our GitHub).
 \end{itemize}
-
-\subsection{Why did we not met our objectives.}
 
 \subsection{What are the possible solutions to meet them.}
 \begin{itemize}
-    \item[-] Find a website less protected and/or having http and https protocols.\\
+    \item[-] Find a website less protected and/or having HTTP and HTTPS protocols.\\
 \end{itemize}
 
 \section{What we wanted to learn with this project and what did we really learn}
 We wanted to learn how to use some basic tools provided natively with kali linux.\\
 
 \section{How did we share the code}
-We used Git (and especially GitHub) to share the code. (https://github.com/as3nds/fishing-WLAN)\\
+We used Git (and especially GitHub) to share the code. (https://github.com/as3nds/phishing-wlan)\\
 We also used c9.io to work in a collaborative way.\\
 
 \pagebreak
+\section*{Conclusion :}
+This projet let us studied a MITM attack. We worked on how to set up and exploit the attack. \\
+At the beggining we wanted to use a fake authentification page on 'gmail.com' to trap a target and retreve his credentials. \\
+During the project we realize that this attack is not possible on 'gmail.com' (and others like 'facebook.com') since they have protection against SSLStrip.\\
+On normal HTTP websites there is no problems to catch eny informations and with some HTTPS site, SSLStrip can get rid of the secured connection.\\
 
+We used some well-known tools to catch and trap targets but also developped our own websniffer and started to develop much more (see GIT).\\
+\pagebreak
 \section*{Definitions :}
 \paragraph{AP}
 Acces Point, device necessary to connect client on a wireless network.\\
@@ -252,5 +319,6 @@ Listen and intercept the target's DNS requests in order to apply a fake DNS tabl
 
 \paragraph{sslstrip}
 This tool, used in a MITM attack, can change requests protocols from HTTPS to HTTP. Only works with website that have HTTP 'AND' HTTPS connection\\
+
 
 \end{document}
