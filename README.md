@@ -1,4 +1,4 @@
-# Fishing-wlan
+# Phishing-wlan
 Our goal is to get the victim's credentials while he is trying to connect to a website
 
 ##1 - Introduction
@@ -18,7 +18,4 @@ This project can be sum up by several step :
     - DNS Spoofing
     - steal SSL certificate
 - Steal credentials
-
-
-
 
